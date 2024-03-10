@@ -1,0 +1,31 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 20vh;;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .Btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .tologin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 40px;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+ 
