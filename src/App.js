@@ -6,11 +6,13 @@ import Home from "./components/Home/Home";
 
 
 function App() {
+  const isLoggedIn= window.localStorage.getItem("loggedIn");
+
   return (
     <Fragment>
       <Router>
         <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={isLoggedIn === 'true'? <Home/> : <SignIn/>} />
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/login' element={<SignIn/>}/>
         </Routes>

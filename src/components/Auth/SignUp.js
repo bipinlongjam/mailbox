@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react'
 import {Form, Button, Container, Row, Col} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './SignUp.module.css'
 
 
 
 const SingUp = () => {
-    
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -40,6 +41,7 @@ const SingUp = () => {
         const data = await response.json();
         if(data.status === "ok"){
             console.log("Signup successfull");
+            navigate('/login')
         }else{
             console.log('SignUp failed')
         }

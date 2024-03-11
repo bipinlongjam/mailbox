@@ -33,9 +33,12 @@ const SignIn = () => {
             }
             const data = await response.json();
             if(data.status === "ok"){
-                console.log("Login successfully");
+                alert("Login successfully");
                 console.log("userdata",data)
-                console.log("userToken", data.token)
+                console.log("userToken", data.data)
+                window.localStorage.setItem("token", data.data);
+                window.localStorage.setItem("loggedIn", true);
+                window.location.href="./"
                 navigate('/');
             }else if(data.status === "not_found"){
                 setErrorMessage("Account does not exits");
@@ -56,7 +59,7 @@ const SignIn = () => {
     <Container>
      <Row >
        <Col>
-         <h2 className={classes.heading}>Sign In</h2>
+         <h2 className={classes.heading}>SignIn</h2>
          <Form onSubmit={handleSignIn}>
            <Form.Group controlId="formBasicEmail">
              <Form.Label>Email</Form.Label>

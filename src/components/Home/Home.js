@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import classes from "./Home.module.css"
 import Createmail from '../mails/Createmail';
@@ -7,7 +7,10 @@ import Sent from '../mails/Sent';
 
 
 const Home = () => {
+    const [userData, setUserData] = useState(null);
     const [activeComponent, setActiveComponent] = useState('inbox');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const renderComponent = ()=>{
         switch(activeComponent){
@@ -21,7 +24,41 @@ const Home = () => {
                 return null;
         }
     }
-    
+    useEffect(()=>{
+        fetchUserData()
+    },[])
+
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/userdata", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    
+                },
+                body:JSON.stringify({
+                    token:window.localStorage.getItem("token")
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Fetching user data failed");
+            }
+
+            const userData = await response.json();
+            setUserData(userData);
+            console.log("userdata",userData)
+        } catch (error) {
+            console.error('Error fetching user data', error);
+            setErrorMessage('Error fetching user data. Please try again later.');
+        }
+    };
+
+    const handleLogout =()=>{
+        window.localStorage.clear();
+        window.location.href="./login"
+    }
+
   return (
     <div>
     <Navbar bg="light" expand="lg">
@@ -31,15 +68,15 @@ const Home = () => {
         <Navbar.Collapse id="basic-navbar-nav" className={classes.navbar}>
           <Nav className="flex-column" style={{ marginRight: '20px' }}>
             <Nav.Item>
-              <Nav.Link disabled>Username</Nav.Link>
+              <Nav.Link disabled>{userData?.data?.email.split('@')[0]}</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link disabled>User Email</Nav.Link>
+              <Nav.Link disabled>{userData?.data?.email}</Nav.Link>
             </Nav.Item>
           </Nav>
           <Nav className="ml-auto">
               <Nav.Item>
-                <Button variant="danger">Logout</Button>
+                <Button variant="danger" onClick={handleLogout} >Logout</Button>
               </Nav.Item>
         </Nav>
         </Navbar.Collapse>
