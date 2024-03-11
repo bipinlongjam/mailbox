@@ -60,7 +60,7 @@ const Home = () => {
     }
 
   return (
-    <div>
+    <div className={classes.container}>
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand href="#"><h2>Welcome to the Home Page</h2></Navbar.Brand>
@@ -82,6 +82,8 @@ const Home = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <div className={classes.containerbody}>
+    <div className={classes.componentlink}>
     <Container className="mt-3">
         <Nav className='justify-content-start flex-column'>
           <Nav.Item onClick={() => setActiveComponent('create')}>
@@ -95,9 +97,11 @@ const Home = () => {
           </Nav.Item>
         </Nav>
       </Container>
-    <Container className="mt-3 d-flex justify-content-center">
+      </div>
+    <Container className="d-flex justify-content-center">
     {renderComponent()}
     </Container>
+    </div>
   </div>
   )
 }
