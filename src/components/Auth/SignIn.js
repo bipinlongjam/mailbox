@@ -37,7 +37,10 @@ const SignIn = () => {
                 console.log("userdata",data)
                 console.log("userToken", data.token)
                 navigate('/');
-            }else{
+            }else if(data.status === "not_found"){
+                setErrorMessage("Account does not exits");
+            }
+            else{
                 console.log('Sign In not success ')
             }
         }catch(error){
