@@ -52,7 +52,7 @@ const Sent = () => {
   return (
     <div className={classes.container}>
         <h2>Sent Messages</h2>
-      <Table striped bordered hover size="lg">
+      <Table striped bordered hover size="xxl">
         <thead>
           <tr>
             <th>#</th>
@@ -60,6 +60,7 @@ const Sent = () => {
             <th>Subject</th>
             <th>Content</th>
             <th>Sent At</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +80,6 @@ const Sent = () => {
           ))}
         </tbody>
       </Table>
-
     </div>
   )
 }
