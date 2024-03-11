@@ -77,6 +77,7 @@ const Createmail = () => {
           <Editor
             editorState={editorState}
             onEditorStateChange={onEditorStateChange}
+            data-testid="email-editor"
             wrapperClassName="demo-wrapper"
             editorClassName="demo-editor"
             placeholder="Write your email content here..."

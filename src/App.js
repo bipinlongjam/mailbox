@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import {BrowserRouter as  Router, Routes, Route} from 'react-router-dom'
-import SignUp from './components/Auth/SignUp'
-import SignIn from "./components/Auth/SignIn";
+import SignUp from './components/Auth/SignUp/SignUp'
+import SignIn from "./components/Auth/SignIn/SignIn";
 import Home from "./components/Home/Home";
 
 

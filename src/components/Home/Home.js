@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import classes from "./Home.module.css"
-import Createmail from '../mails/Createmail';
-import Inbox from '../mails/Inbox';
-import Sent from '../mails/Sent';
+import Createmail from '../mails/Create/Createmail';
+import Inbox from '../mails/Inbox/Inbox';
+import Sent from '../mails/Sent/Sent';
 
 
 const Home = () => {

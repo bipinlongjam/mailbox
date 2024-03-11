@@ -63,7 +63,7 @@ test("renders SignIn text in the component", () => {
     const { getByLabelText, getByText } = render(
         <MemoryRouter>
         <SignIn/>
-    </MemoryRouter>
+      </MemoryRouter>
     ); // Render your SignIn component
   
     // Simulate user input
