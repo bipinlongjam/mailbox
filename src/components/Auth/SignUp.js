@@ -5,7 +5,7 @@ import classes from './SignUp.module.css'
 
 
 
-const Singup = () => {
+const SingUp = () => {
     
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -86,7 +86,6 @@ const Singup = () => {
                 required
               />
             </Form.Group>
-
             {errorMessage && <p className="text-danger">{errorMessage}</p>}
             <div className={classes.Btn}>
             <Button variant="primary" type="submit" >
@@ -104,4 +103,4 @@ const Singup = () => {
   )
 }
 
-export default Singup
+export default SingUp
