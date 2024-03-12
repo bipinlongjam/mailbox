@@ -69,7 +69,7 @@ const Inbox = () => {
         </tbody>
       </Table>
        )}
-      {selectedMessage && <MessageDetails message={selectedMessage} onClose={closeMessageDetails}/>}
+      {selectedMessage && <MessageDetails message={selectedMessage} onClose={closeMessageDetails} page="inbox"/>}
     </div>
   )
 }

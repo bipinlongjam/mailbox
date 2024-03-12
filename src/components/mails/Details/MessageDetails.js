@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import classes from "./MessageDetails.module.css"
 
-const MessageDetails = ({message, onClose}) => {
+const MessageDetails = ({message, onClose, page}) => {
 
     const [replyOpen, setReplyOpen] = useState(false);
     const messages = useSelector(state => state.inbox.messages.find(msg => msg._id === message));
@@ -18,12 +18,12 @@ const MessageDetails = ({message, onClose}) => {
   return (
     <div className={classes.container}>
     <h2>Your message</h2>
-    <p>From: {messages.to}</p>
+    <p>{page === 'sent' ? 'To' : 'From'}: {page === 'sent' ? messages.to : messages.to}</p>
     <p>Subject: {messages.subject}</p>
     <p>Content: {messages.content}</p>
-    <p>Received At: {new Date(messages.sentAt).toLocaleString()}</p>
+    <p>{page === 'sent' ? 'Sent At' : 'Received At'}: {new Date(messages.sentAt).toLocaleString()}</p>
     <div className={classes.button}>
-    <button onClick={onClose}>Back to Inbox</button>
+    <button onClick={onClose}>Back to {page === 'sent' ? 'Sent' : 'Inbox'}</button>
     <button onClick={toggleReply}>Reply</button>
     </div>
       {replyOpen && (
