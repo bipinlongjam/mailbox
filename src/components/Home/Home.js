@@ -21,7 +21,8 @@ const Home = () => {
             case 'inbox':
                 return <Inbox/>
             case 'sent':
-                return <Sent/>
+                return <Sent/>  
+                {/* Sent mail component as resuable*/}
             case 'details':
               return <MessageDetails/>
             default:
