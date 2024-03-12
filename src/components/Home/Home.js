@@ -6,14 +6,17 @@ import Inbox from '../mails/Inbox/Inbox';
 import Sent from '../mails/Sent/Sent';
 import MessageDetails from '../mails/Details/MessageDetails';
 import { useSelector } from 'react-redux';
+import { useFetchUserData } from './Hooks';
 
 
 const Home = () => {
-    const [userData, setUserData] = useState(null);
-    const [activeComponent, setActiveComponent] = useState('inbox');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+  const token = window.localStorage.getItem("token");
+  const { userData, errorMessage } = useFetchUserData(token);
+  const [activeComponent, setActiveComponent] = useState('inbox');
 
+  const messages = useSelector(state =>state.inbox.messages);
+  const unreadMessage = messages.filter(message => !message.isRead).length;
+  
     const renderComponent = ()=>{
         switch(activeComponent){
             case 'create':
@@ -26,47 +29,15 @@ const Home = () => {
             case 'details':
               return <MessageDetails/>
             default:
-                return null;
+              return null;
         }
     }
-    useEffect(()=>{
-        fetchUserData()
-    },[])
-
-    const fetchUserData = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/userdata", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    
-                },
-                body:JSON.stringify({
-                    token:window.localStorage.getItem("token")
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error("Fetching user data failed");
-            }
-
-            const userData = await response.json();
-            setUserData(userData);
-            console.log("userdata",userData)
-        } catch (error) {
-            console.error('Error fetching user data', error);
-            setErrorMessage('Error fetching user data. Please try again later.');
-        }
-    };
 
     const handleLogout =()=>{
         window.localStorage.clear();
         window.location.href="./login"
     }
 
-    const messages = useSelector(state =>state.inbox.messages);
-
-    const unreadMessage = messages.filter(message => !message.isRead).length;
 
   return (
     <div className={classes.container}>

@@ -4,11 +4,13 @@ import classes from './SignIn.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 
+
 const SignIn = () => {
 
     const emailRef = useRef();
     const passwordRef = useRef();
     const [errorMessage, setErrorMessage] = useState('');
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const navigate = useNavigate()
     
     const handleSignIn = async (event)=>{
@@ -33,7 +35,7 @@ const SignIn = () => {
             }
             const data = await response.json();
             if(data.status === "ok"){
-                alert("Login successfully");
+              setShowSuccessMessage(true);
                 console.log("userdata",data)
                 console.log("userToken", data.data)
                 window.localStorage.setItem("token", data.data);
@@ -88,6 +90,11 @@ const SignIn = () => {
            </Button>
            </div>
          </Form>
+         {showSuccessMessage && (
+              <div>
+                <p>Login successfully</p>
+              </div>
+            )}
          <p className={classes.tologin}>
            Don't Have an account?  <Link to="/signup">SignUp</Link>
          </p>

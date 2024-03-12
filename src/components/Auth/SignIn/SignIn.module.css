@@ -28,4 +28,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
- 
+  .successMessage {
+    color: green;
+    font-size: 30px;
+  }

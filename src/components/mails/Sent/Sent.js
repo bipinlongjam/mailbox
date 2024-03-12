@@ -5,6 +5,7 @@ import { UseDispatch, useDispatch, useSelector } from 'react-redux';
 import classes from './Sent.module.css'
 import { fetchMessages, deleteMessage, markMessageAsRead } from '../../../reducer/inboxSlice';
 import MessageDetails from '../Details/MessageDetails';
+import { useFetchMessages } from './Hooks';
 
 
 const Sent = () => {
@@ -14,9 +15,7 @@ const Sent = () => {
   const [messageDetailsOpen, setMessageDetailsOpen] = useState(false);
  
 
-  useEffect(()=>{
-    dispatch(fetchMessages());
-  },[dispatch])
+    useFetchMessages();
 
   const handleDeleteEmail = (id) => {
     dispatch(deleteMessage(id));

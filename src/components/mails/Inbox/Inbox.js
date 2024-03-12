@@ -5,6 +5,7 @@ import { UseDispatch, useDispatch, useSelector } from 'react-redux';
 import classes from './Inbox.module.css'
 import { fetchMessages, deleteMessage, markMessageAsRead } from '../../../reducer/inboxSlice';
 import MessageDetails from '../Details/MessageDetails';
+import { useFetchMessages } from './Hooks';
 
 
 const Inbox = () => {
@@ -15,16 +16,7 @@ const Inbox = () => {
   const [initialLoad, setInitialLoad] = useState(true);
  
 
-  useEffect(() => {
-    // Fetch messages when component mounts
-    dispatch(fetchMessages());
-    // Setup interval to fetch messages every 2 seconds
-    const intervalId = setInterval(() => {
-      dispatch(fetchMessages());
-    }, 2000);
-    // Clean up interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [dispatch]);
+    useFetchMessages();
 
   const handleDeleteEmail = (id) => {
     dispatch(deleteMessage(id));
