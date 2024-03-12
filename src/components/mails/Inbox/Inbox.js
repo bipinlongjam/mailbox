@@ -12,11 +12,19 @@ const Inbox = () => {
   const { messages, loading, error } = useSelector(state => state.inbox);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [messageDetailsOpen, setMessageDetailsOpen] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
  
 
-  useEffect(()=>{
+  useEffect(() => {
+    // Fetch messages when component mounts
     dispatch(fetchMessages());
-  },[dispatch])
+    // Setup interval to fetch messages every 2 seconds
+    const intervalId = setInterval(() => {
+      dispatch(fetchMessages());
+    }, 2000);
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
 
   const handleDeleteEmail = (id) => {
     dispatch(deleteMessage(id));
