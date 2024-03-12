@@ -72,7 +72,7 @@ const Sent = () => {
               <td>{message.content}</td>
               <td>{new Date(message.sentAt).toLocaleString()}</td>
               <td>
-                <Button variant="danger" onClick={() => handleDeleteEmail(message._id)}>
+                <Button variant="danger" onClick={() => handleDeleteEmail(message._id)} data-testid="delete-button">
                     <FaTrash/>
                 </Button>
               </td>
