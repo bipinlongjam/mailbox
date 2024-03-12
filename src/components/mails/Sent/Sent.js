@@ -75,6 +75,7 @@ const Sent = () => {
                 <Button variant="danger" onClick={() => handleDeleteEmail(message._id)} data-testid="delete-button">
                     <FaTrash/>
                 </Button>
+                {/* Delete Button */}
               </td>
             </tr>
           ))}
