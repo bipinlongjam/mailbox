@@ -4,6 +4,8 @@ import classes from "./Home.module.css"
 import Createmail from '../mails/Create/Createmail';
 import Inbox from '../mails/Inbox/Inbox';
 import Sent from '../mails/Sent/Sent';
+import MessageDetails from '../mails/Details/MessageDetails';
+import { useSelector } from 'react-redux';
 
 
 const Home = () => {
@@ -20,6 +22,8 @@ const Home = () => {
                 return <Inbox/>
             case 'sent':
                 return <Sent/>
+            case 'details':
+              return <MessageDetails/>
             default:
                 return null;
         }
@@ -59,11 +63,15 @@ const Home = () => {
         window.location.href="./login"
     }
 
+    const messages = useSelector(state =>state.inbox.messages);
+
+    const unreadMessage = messages.filter(message => !message.isRead).length;
+
   return (
     <div className={classes.container}>
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#"><h2>Welcome to the Home Page</h2></Navbar.Brand>
+        <Navbar.Brand href="#"><h2>Welcome to the Mail Box</h2></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className={classes.navbar}>
           <Nav className="flex-column" style={{ marginRight: '20px' }}>
@@ -90,7 +98,7 @@ const Home = () => {
             <Nav.Link>Create Email</Nav.Link>
           </Nav.Item>
           <Nav.Item onClick={() => setActiveComponent('inbox')}>
-            <Nav.Link>Inbox</Nav.Link>
+            <Nav.Link>Inbox ({unreadMessage})</Nav.Link>
           </Nav.Item>
           <Nav.Item onClick={() => setActiveComponent('sent')}>
             <Nav.Link>Sent</Nav.Link>

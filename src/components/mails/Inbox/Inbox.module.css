@@ -12,3 +12,8 @@
     margin-top: 10px;
     font-style: italic;
 }
+.unreadIcon{
+    color: blue;
+    padding-right: 5px;
+    margin-right: 5px;
+}

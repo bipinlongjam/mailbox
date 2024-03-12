@@ -10,7 +10,6 @@ const SingUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate()
 
   const handleSignUp = async (event) => {
@@ -20,7 +19,7 @@ const SingUp = () => {
     const confirmPassword = confirmPasswordRef.current.value;
 
     if (password !== confirmPassword) {
-      setErrorMessage("Passwords don't match");
+      console.log("Password not match")
       return;
     }
     try{
@@ -88,7 +87,6 @@ const SingUp = () => {
                 required
               />
             </Form.Group>
-            {errorMessage && <p className="text-danger">{errorMessage}</p>}
             <div className={classes.Btn}>
             <Button variant="primary" type="submit" >
               Sign Up

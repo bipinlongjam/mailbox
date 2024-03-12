@@ -1,60 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
-import { FaTrash } from 'react-icons/fa'; 
+import { FaTrash, FaCircle } from 'react-icons/fa'; 
+import { UseDispatch, useDispatch, useSelector } from 'react-redux';
 import classes from './Inbox.module.css'
+import { fetchMessages, deleteMessage, markMessageAsRead } from '../../../reducer/inboxSlice';
+import MessageDetails from '../Details/MessageDetails';
 
 
 const Inbox = () => {
-
-  const [messages, setMessages] = useState([]);
-
+  const dispatch = useDispatch();
+  const { messages, loading, error } = useSelector(state => state.inbox);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [messageDetailsOpen, setMessageDetailsOpen] = useState(false);
+ 
 
   useEffect(()=>{
-    fetchInboxEmails();
-  },[])
+    dispatch(fetchMessages());
+  },[dispatch])
 
-  const fetchInboxEmails = async () => {
-      try {
-          const response = await fetch("http://localhost:5000/sentemails", {
-              method: 'POST', // Assuming you are using GET method to fetch sent emails
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-          });
-  
-          if (!response.ok) {
-              throw new Error("Fetching sent emails failed");
-          }
-  
-          const sentEmails = await response.json();
-          console.log("Sent Emails:", sentEmails);
-          setMessages(sentEmails)
-          // Handle the fetched sentEmails data as needed
-      } catch (error) {
-          console.error('Error fetching sent emails:', error);
-          // Handle the error, e.g., display an error message
-      }
+  const handleDeleteEmail = (id) => {
+    dispatch(deleteMessage(id));
   };
-
-  const handleDeleteEmail = async (id) => {
-      try {
-          const response = await fetch(`http://localhost:5000/sentemails/${id}`, {
-              method: 'DELETE',
-          });
-          if (!response.ok) {
-              throw new Error("Deleting email failed");
-          }
-          // Remove the deleted email from the state
-          setMessages(messages.filter(message => message._id !== id));
-      } catch (error) {
-          console.error('Error deleting email:', error);
-          // Handle the error, e.g., display an error message
-      }
+  const handleRowClick = (id) => {
+    setSelectedMessage(id);
+    setMessageDetailsOpen(true);
+    dispatch(markMessageAsRead(id));
+    console.log("message",selectedMessage)
+    console.log("selectedId", id)
+  };
+  const closeMessageDetails = () => {
+    setSelectedMessage(null);
+    setMessageDetailsOpen(false); // Close message details
   };
 
   return (
     <div className={classes.container}>
         <h2>Inbox Messages</h2>
+        {!messageDetailsOpen && (
       <Table striped bordered hover size="xxl">
         <thead>
           <tr>
@@ -68,9 +50,11 @@ const Inbox = () => {
         </thead>
         <tbody>
           {messages?.map((message, index) => (
-            <tr key={index}>
+            <tr key={index} onClick={() => handleRowClick(message._id)}>
               <td>{index + 1}</td>
-              <td>{message.to}</td>
+              <td>
+              {!message.isRead && <FaCircle className={classes.unreadIcon} />}
+                {message.to}</td>
               <td>{message.subject}</td>
               <td>{message.content}</td>
               <td>{new Date(message.sentAt).toLocaleString()}</td>
@@ -83,6 +67,8 @@ const Inbox = () => {
           ))}
         </tbody>
       </Table>
+       )}
+      {selectedMessage && <MessageDetails message={selectedMessage} onClose={closeMessageDetails}/>}
     </div>
   )
 }
