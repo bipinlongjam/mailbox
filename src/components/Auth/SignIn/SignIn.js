@@ -91,7 +91,7 @@ const SignIn = () => {
            </div>
          </Form>
          {showSuccessMessage && (
-              <div>
+              <div  className={classes.successMessage}>
                 <p>Login successfully</p>
               </div>
             )}

@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 80vw;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-right: 250px;
+   
+}
+.container h2{
+    font-size: large;
+    margin-top: 10px;
+    font-style: italic;
+}
+.unreadIcon{
+    color: blue;
+    padding-right: 5px;
+    margin-right: 5px;
+}

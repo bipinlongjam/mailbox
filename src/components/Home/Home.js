@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import classes from "./Home.module.css"
-import Createmail from '../mails/Create/Createmail';
-import Inbox from '../mails/Inbox/Inbox';
-import Sent from '../mails/Sent/Sent';
-import MessageDetails from '../mails/Details/MessageDetails';
+import Createmail from '../Mail/Create/Createmail';
+import Inbox from '../Mail/Inbox/Inbox';
+import Sent from '../Mail/Sent/Sent';
+import MessageDetails from '../Mail/Details/MessageDetails';
 import { useSelector } from 'react-redux';
 import { useFetchUserData } from './Hooks';
 
@@ -16,7 +16,7 @@ const Home = () => {
 
   const messages = useSelector(state =>state.inbox.messages);
   const unreadMessage = messages.filter(message => !message.isRead).length;
-  
+
     const renderComponent = ()=>{
         switch(activeComponent){
             case 'create':
@@ -41,7 +41,7 @@ const Home = () => {
 
   return (
     <div className={classes.container}>
-    <Navbar bg="light" expand="lg">
+    <Navbar  className="bg-body-tertiary" expand="lg">
       <Container>
         <Navbar.Brand href="#"><h2>Welcome to the Mail Box</h2></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
