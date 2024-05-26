@@ -12,15 +12,28 @@ const router = express.Router();
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = "adhvakhq7262bskhfgsgf()kfgsk{}bsjbfj[]gigfw7j"
 
-const mongoUrl = 
-"mongodb+srv://bipinlongjam:bipin@cluster0.xpexigs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const MONGO_URL = "mongodb+srv://bipinlongjam:bipin@cluster0.xpexigs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const PORT=5000
+// const PORT = process.env.PORT || 5000;
 
-mongoose.connect(mongoUrl,{
-    useNewUrlParser:true
-}).then(() =>{
-    console.log("Connected to database")
-})
-.catch((e)=>console.log(e))
+const connectToMongoDB = async () =>{
+    try{
+        await mongoose.connect(MONGO_URL)
+        console.log("Connected to MongoDB")
+    }
+    catch(error){
+        console.log("Error connecting to MongoDB", error.message)
+    }
+}
+// const mongoUrl = 
+// "mongodb+srv://bipinlongjam:bipin@cluster0.xpexigs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+// mongoose.connect(mongoUrl,{
+//     useNewUrlParser:true
+// }).then(() =>{
+//     console.log("Connected to database")
+// })
+// .catch((e)=>console.log(e))
 
 require("./user/userDetails")
 
@@ -154,8 +167,9 @@ app.delete('/sentemails/:id', async (req, res) => {
   }
 });
 
-app.listen(5000, ()=>{
-    console.log("Server Started");
+app.listen(PORT, () => {
+    connectToMongoDB();
+    console.log(`Server is Running on port ${PORT}`);
 })
 
 
